@@ -207,21 +207,26 @@ void docAttach::sHandleButtons()
   }
   else if (_docType->currentIndex() == 12)
   {
+    connect(_quote, SIGNAL(valid(bool)), _save, SLOT(setEnabled(bool)));
+    _save->setEnabled(_quote->isValid());
+  }
+  else if (_docType->currentIndex() == 13)
+  {
     connect(_so, SIGNAL(valid(bool)), _save, SLOT(setEnabled(bool)));
     _save->setEnabled(_so->isValid());
   }
-  else if (_docType->currentIndex() == 13)
+  else if (_docType->currentIndex() == 14)
   {
     connect(_vend, SIGNAL(valid(bool)), _save, SLOT(setEnabled(bool)));
     _save->setEnabled(_vend->isValid());
   }
-  else if (_docType->currentIndex() == 14)
+  else if (_docType->currentIndex() == 15)
   {
     _docAttachPurpose->setEnabled(false);
     _docAttachPurpose->setCurrentIndex(0);
     _save->setEnabled(true);
   }
-  else if (_docType->currentIndex() == 15)
+  else if (_docType->currentIndex() == 16)
   {
     connect(_wo, SIGNAL(valid(bool)), _save, SLOT(setEnabled(bool)));
     _save->setEnabled(_wo->isValid());
@@ -316,15 +321,20 @@ void docAttach::sSave()
   }
   else if (_docType->currentIndex() == 12)
   {
+    _targettype = "Q";
+    _targetid = _quote->id();
+  }
+  else if (_docType->currentIndex() == 13)
+  {
     _targettype = "S";
     _targetid = _so->id();
   }
-  else if (_docType->currentIndex() == 13)
+  else if (_docType->currentIndex() == 14)
   {
     _targettype = "V";
     _targetid = _vend->id();
   }
-  else if (_docType->currentIndex() == 14)
+  else if (_docType->currentIndex() == 15)
   {
     if(_url->text().trimmed().isEmpty())
     {
@@ -339,7 +349,7 @@ void docAttach::sSave()
     if (url.scheme().isEmpty())
       url.setScheme("http");
   }
-  else if (_docType->currentIndex() == 15)
+  else if (_docType->currentIndex() == 16)
   {
     _targettype = "W";
     _targetid = _wo->id();
